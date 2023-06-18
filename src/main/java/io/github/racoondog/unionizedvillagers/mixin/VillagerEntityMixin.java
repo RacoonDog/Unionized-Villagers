@@ -29,7 +29,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
     private void livingSpace(CallbackInfo ci) {
         if (offers == null) return;
 
-        if (!WorldUtils.isLivable(world, (VillagerEntity) (Object) this)) {
+        if (!WorldUtils.isLivable(getWorld(), (VillagerEntity) (Object) this)) {
             oshaViolated = true;
             for (var trade : offers) ((IOshaViolationHolder) trade).villagerBalancing$setOshaViolationStatus(true);
             sayNo();
@@ -46,7 +46,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
         if (tickDelay-- > 0) return;
         tickDelay = 4;
 
-        if (!WorldUtils.isLivable(world, (VillagerEntity) (Object) this)) {
+        if (!WorldUtils.isLivable(getWorld(), (VillagerEntity) (Object) this)) {
             if (!oshaViolated) {
                 oshaViolated = true;
                 for (var trade : offers) ((IOshaViolationHolder) trade).villagerBalancing$setOshaViolationStatus(true);
