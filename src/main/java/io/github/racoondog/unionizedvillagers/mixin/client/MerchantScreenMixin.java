@@ -12,6 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.MerchantScreenHandler;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.village.TradeOfferList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -46,7 +47,7 @@ public abstract class MerchantScreenMixin extends HandledScreen<MerchantScreenHa
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/MerchantScreen;renderTooltip(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;II)V"))
     private void renderTooltip(MerchantScreen instance, MatrixStack matrixStack, Text text, int x, int y) {
-        instance.renderTooltip(matrixStack, oshaViolation ? Text.translatable("villager.gui.osha-violation") : text, x, y);
+        instance.renderTooltip(matrixStack, oshaViolation ? new TranslatableText("villager.gui.osha-violation") : text, x, y);
     }
 
     @Inject(method = "render", at = @At("TAIL"))
@@ -54,7 +55,7 @@ public abstract class MerchantScreenMixin extends HandledScreen<MerchantScreenHa
         if (!oshaViolation) return;
 
         if (isPointWithinBounds(backgroundWidth - 24, 8, 16, 16, mouseX, mouseY)) {
-            renderTooltip(matrices, Text.translatable("villager.gui.osha-violation"), mouseX, mouseY);
+            renderTooltip(matrices, new TranslatableText("villager.gui.osha-violation"), mouseX, mouseY);
         }
     }
 }
