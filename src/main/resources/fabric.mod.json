@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "unionized-villagers",
+  "version": "${version}",
+  "name": "Unionized Villagers",
+  "description": "The villagers have unionized.",
+  "authors": [ "Crosby" ],
+  "contact": {
+    "sources": "https://github.com/RacoonDog/Unionized-Villagers",
+    "issues": "https://github.com/RacoonDog/Unionized-Villagers/issues",
+    "discord": "https://discord.gg/4RBmBCFSTc"
+  },
+  "license": "MIT",
+  "icon": "assets/unionized-villagers/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.racoondog.unionizedvillagers.UnionizedVillagers"
+    ]
+  },
+  "mixins": [
+    "unionized-villagers.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "fabric-game-rule-api-v1": "*",
+    "fabric-resource-loader-v0": "*",
+    "minecraft": "1.19.4"
+  }
+}
