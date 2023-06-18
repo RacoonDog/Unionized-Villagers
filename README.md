@@ -1,6 +1,7 @@
 <div align="center">
   <h1>Unionized Villagers</h1>
   <p>A compilation of multiple villager balance fixes configurable via gamerules.</p>
+  <p>Required on the server, optional on the client.</p>
 </div>
 
 # Features
