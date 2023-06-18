@@ -45,8 +45,8 @@ public abstract class MerchantScreenMixin extends HandledScreen<MerchantScreenHa
     }
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/MerchantScreen;renderTooltip(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;II)V"))
-    private void renderTooltip(MerchantScreen instance, MatrixStack matrixStack, Text text, int i, int j) {
-        instance.renderTooltip(matrixStack, oshaViolation ? Text.translatable("villager.gui.osha-violation") : text, i, j);
+    private void renderTooltip(MerchantScreen instance, MatrixStack matrixStack, Text text, int x, int y) {
+        instance.renderTooltip(matrixStack, oshaViolation ? Text.translatable("villager.gui.osha-violation") : text, x, y);
     }
 
     @Inject(method = "render", at = @At("TAIL"))

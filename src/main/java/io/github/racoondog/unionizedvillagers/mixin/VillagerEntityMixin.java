@@ -5,6 +5,9 @@ import io.github.racoondog.unionizedvillagers.WorldUtils;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.village.TradeOfferList;
+import net.minecraft.village.VillagerData;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,7 +22,8 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
     @Unique private boolean oshaViolated = false;
 
     @Shadow protected abstract void sayNo();
-    @Shadow protected abstract void sendOffersToCustomer();
+
+    @Shadow public abstract VillagerData getVillagerData();
 
     private VillagerEntityMixin(EntityType<? extends MerchantEntity> entityType, World world) {
         super(entityType, world);
@@ -58,6 +62,15 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
                 for (var trade : offers) ((IOshaViolationHolder) trade).villagerBalancing$setOshaViolationStatus(false);
                 sendOffersToCustomer();
             }
+        }
+    }
+
+    @Unique
+    private void sendOffersToCustomer() {
+        TradeOfferList tradeOfferList = this.getOffers();
+        PlayerEntity playerEntity = this.getCustomer();
+        if (playerEntity != null && !tradeOfferList.isEmpty()) {
+            playerEntity.sendTradeOffers(playerEntity.currentScreenHandler.syncId, tradeOfferList, this.getVillagerData().getLevel(), this.getExperience(), this.isLeveledMerchant(), this.canRefreshTrades());
         }
     }
 }
